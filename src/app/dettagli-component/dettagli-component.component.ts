@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { PostsService } from '../posts.service';
 
 @Component({
   selector: 'app-dettagli-component',
@@ -11,17 +12,11 @@ export class DettagliComponentComponent implements OnInit {
 
   p:any
 
-  posts = [
-    {id:0, title: "a", body:"aaa"},
-    {id:1, title: "b", body:"bbb"},
-    {id:2, title: "c", body:"ccc"}
-  ];
-
   // 1 - creare un Subscription -> import da rxjs
   sub!:Subscription
 
   // 2 - ottenere dai parametri l'ActivatedRoute
-  constructor(private router:ActivatedRoute, /*private postSrv:PostService*/) { }
+  constructor(private router:ActivatedRoute, private postSrv:PostsService) { }
 
   ngOnInit(): void {
     // 3 - assegnare a sub il subscribe() su i parametri del router 
@@ -32,7 +27,7 @@ export class DettagliComponentComponent implements OnInit {
 
 
       //infine letto l'id seleziono l'elemento da visualizzare (this.p è la proprietà che uso nel template)
-      this.p = this.posts.filter((e)=>e.id==id)[0]
+      this.p = this.postSrv.getPostById(id);
       
       
       //Solitamente quando vogliamo vedere i dettagli di un oggetto da un array chiediamo al service di darci quell'elemento
