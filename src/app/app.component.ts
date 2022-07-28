@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'S9L4';
+
+  oggi = new Date().toString()
+
+  totale = 20.45
+
+  parola = "reversed"
+
 }
