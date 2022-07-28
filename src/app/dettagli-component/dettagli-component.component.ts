@@ -21,12 +21,22 @@ export class DettagliComponentComponent implements OnInit {
   sub!:Subscription
 
   // 2 - ottenere dai parametri l'ActivatedRoute
-  constructor(private router:ActivatedRoute) { }
+  constructor(private router:ActivatedRoute, /*private postSrv:PostService*/) { }
 
   ngOnInit(): void {
+    // 3 - assegnare a sub il subscribe() su i parametri del router 
+    // all'interno di subscribe passare come parametro una funzoine che ha come parametro i *parametri del router* che p un array associativo
     this.sub = this.router.params.subscribe((pars)=>{
+      //Possiamo leggere un parametro dal router con +pars["key"] -> key sarebbe :key nei path indicati nel app-routing.module.ts
       let id = +pars["id"]
+
+
+      //infine letto l'id seleziono l'elemento da visualizzare (this.p è la proprietà che uso nel template)
       this.p = this.posts.filter((e)=>e.id==id)[0]
+      
+      
+      //Solitamente quando vogliamo vedere i dettagli di un oggetto da un array chiediamo al service di darci quell'elemento
+      // this.p = this.postSrv.getPostById(id)
     })
   }
 
